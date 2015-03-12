@@ -16,8 +16,17 @@ def order_groupes_by_capa(groupes):
         elif m < min_capa:
             min_capa = m
             gpe_min = groupe_id
-
+    print(gpe_min, min_capa, gpe_max, max_capa)
     return(gpe_min, gpe_max)
+
+
+def find_serveur_pos(serveurs, s_id):
+    position = 0
+    for pos, s in enumerate(serveurs):
+        if s[0] == s_id:
+            position = pos
+    return position
+
 
 if __name__ == "__main__":
     P = 45
@@ -28,10 +37,11 @@ if __name__ == "__main__":
     groupes, serveurs_sorted_by_capacite = get_groupe_ordonnancement(serveurs, P, R, M)
 
     for i in range(10):
+        print(capa_garantie(groupes))
         groupe_min_id, groupe_max_id = order_groupes_by_capa(groupes)
 
-        serveur_to_add = groupe_max[0][-1]
-        remove_from_groupe(groupes, serveurs, groupe_max_id, serveur)
-
-
+        serveur_to_add = groupes[groupe_max_id][0][-2]
+        serveur_position = find_serveur_pos(serveurs, serveur_to_add)
+        remove_from_group(groupes, serveurs, groupe_max_id, serveurs[serveur_position], serveur_position)
+        add_in_group(groupes, serveurs, groupe_min_id, serveurs[serveur_position], serveur_position)
 

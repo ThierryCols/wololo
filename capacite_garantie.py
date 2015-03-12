@@ -23,7 +23,7 @@ def add_in_group(groupes, serveurs, g, s, i):
 
 def remove_from_group(groups, serveurs, g, s, i):
     groups[g][0].remove(s[0]) # enleve l id du serveur de la liste des serveurs du groupe
-    groupes[g][1][s[3]]-=s[2] # enleve la capacite de la liste des capacites par rangees
+    groups[g][1][s[3]]-=s[2] # enleve la capacite de la liste des capacites par rangees
     serveurs[i] = (s[0],s[1],s[2],s[3],s[4],-1) # enleve le groupe du tuple representant le serveur
 
 def select_group(groupes,s):
