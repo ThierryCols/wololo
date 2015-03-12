@@ -8,7 +8,7 @@ def calcRowHeuristic(row):
 	if len(row[1]) == 0:
 		return 0
 	else:
-		return (row[0], row[2]/len(row[1]))
+		return (row[0], (row[2] ** 2 * 1.0)/(len(row[1]) * 1.0))
 
 def calcServerHeuristic(server):
 	return (server[0], (server[2]*1.0)/(server[1] * 1.0))
@@ -25,7 +25,7 @@ def getPlacedServers():
 		rowList[forbiddenPlace[0]][1].append(forbiddenPlace[1])
 
 	rowHeuristicList = map(calcRowHeuristic, rowList)
-	rowHeuristicList.sort(key=itemgetter(1), reverse=True)
+	rowHeuristicList.sort(key=itemgetter(1))
 
 	serverHeuristicList = map(calcServerHeuristic, serverList)
 	serverHeuristicList.sort(key=itemgetter(1), reverse=True)
@@ -55,5 +55,5 @@ def getPlacedServers():
 			if rowHeuristicIndex==16:
 				placed = True
 		rowHeuristicList = map(calcRowHeuristic, rowList)
-		rowHeuristicList.sort(key=itemgetter(1), reverse=True)
+		rowHeuristicList.sort(key=itemgetter(1))
 	return placedServers
