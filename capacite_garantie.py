@@ -52,9 +52,9 @@ def save_results_in_file(serveurs, filename):
     with open(filename,"w") as file:
         for s in serveurs:
             if s[0]<0:
-                print("x")
+                file.write("x\n")
             else:
-                print(str(s[3])+" "+str(s[4])+" "+str(s[5]))
+                file.write(str(s[3])+" "+str(s[4])+" "+str(s[5])+"\n")
 
 def add_missing_serveur(serveurs, M):
     serveurs_with_missings = [(-1,-1,-1,-1,-1,-1) for i in range(M)]
