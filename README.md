@@ -2,4 +2,4 @@
 
 The Official Cheese Steak repo.
 
-Love for the world & Peperony Pizzas
+Love for the world & Pepperoni Pizzas
