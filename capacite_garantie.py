@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from placement import * 
+
 def get_groupe_ordonnancement(serveurs, P, R):
     groupes = [([],[0 for i in range(R)]) for i in range(P)]
     serveurs_sorted_by_capacite = sorted(serveurs,key=lambda s:-s[2])
@@ -7,6 +9,7 @@ def get_groupe_ordonnancement(serveurs, P, R):
     for i, s in enumerate(serveurs_sorted_by_capacite):
         g = select_group(groupes,s)
         add_in_group(groupes, serveurs_sorted_by_capacite, g, s, i)
+    print(capa_garantie(groupes))
     serveurs_updated = sorted(serveurs_sorted_by_capacite,key=lambda s:s[0])
     return serveurs_updated
 
@@ -47,11 +50,12 @@ def save_results_in_file(serveurs, filename):
             file.write(str(s[3])+" "+str(s[4])+" "+str(s[5])+"\n")
 
 if __name__ == "__main__":
-    P = 2
-    R = 5
+    P = 45
+    R = 16
     serveurs = [(1,1,1,2,0),(0,3,2,0,0),(0,3,3,1,0)]
+    serveurs = getPlacedServers()
     serveurs_updated = get_groupe_ordonnancement(serveurs, P, R)
-    affiche_resultat(serveurs_updated)
+    # affiche_resultat(serveurs_updated)
     save_results_in_file(serveurs_updated,"resultats.txt")
 
 
