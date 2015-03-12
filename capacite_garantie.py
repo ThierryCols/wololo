@@ -20,6 +20,11 @@ def add_in_group(groupes, serveurs, g, s, i):
     groupes[g][1][s[3]]+=s[2] # ajoute la capacite dans la liste des caoacites par rangees
     serveurs[i] = (s[0],s[1],s[2],s[3],s[4],g) # ajoute le groupe au tuple representant le serveur
 
+def remove_from_group(groups, serveurs, g, s, i):
+    groups[g][0].remove(s[0]) # enleve l id du serveur de la liste des serveurs du groupe
+    groupes[g][1][s[3]]-=s[2] # enleve la capacite de la liste des capacites par rangees
+    serveurs[i] = (s[0],s[1],s[2],s[3],s[4],-1) # enleve le groupe du tuple representant le serveur
+
 def select_group(groupes,s):
     return capa_garantie(groupes)[0]
 
@@ -43,7 +48,7 @@ def capa(groupe):
 
 def affiche_resultat(serveurs):
     for s in serveurs:
-        if s[0]<0:
+        if s[5]<0:
             print("x")
         else:
             print(str(s[3])+" "+str(s[4])+" "+str(s[5]))
@@ -51,7 +56,7 @@ def affiche_resultat(serveurs):
 def save_results_in_file(serveurs, filename):
     with open(filename,"w") as file:
         for s in serveurs:
-            if s[0]<0:
+            if s[5]<0:
                 file.write("x\n")
             else:
                 file.write(str(s[3])+" "+str(s[4])+" "+str(s[5])+"\n")
