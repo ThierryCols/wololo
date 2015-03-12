@@ -4,27 +4,14 @@ import linecache
 import re
 
 
-'''
-def 
-	f = open(dc.in,'r')
-	lines = f.read().splitlines()
-	f.close()
-	return lines
 
 
+def parseInd (tupList):
+	output = []
+	i = 0
+	for tupl in tupList:
+		buff = (i, tupl[0], tupl[1])
+		i += 1
+		output.append(buff)
+	return output
 
-
-
-def addId(tupleList):
-	for tup in tupleList:
-'''
-
-ind = 0
-def addIndex(tup):
-	newtup = (ind, tup[0], tup[1])
-	ind ++
-	return newtup
-
-def parser(stanArray):
-	indexedEntry = map(addIndex, stanArray)
-	return indexedEntry
