@@ -29,4 +29,31 @@ serverHeuristicList.sort(key=itemgetter(1), reverse=True)
 
 placedServers = []
 
+for serverHeuristic in  serverHeuristicList:
+	server = serverList[serverHeuristic[0]]
+	placed = False
+	rowHeuristicIndex = 0
+	place = -1
+	while (not(placed)):
+		candidateRow = rowList[rowHeuristicList[rowHeuristicIndex][0]]
+		for i in range(100 - server[1]):
+			possible = True
+			for j in range(i, i + server[1]):
+				if j in candidateRow[1]:
+					possible=False
+			if possible and not(placed):
+				placedServers.append((server[0], server[1], server[2], candidateRow[0], i))
+				for j in range(i, i + server[1]):
+					rowList[candidateRow[0]][1].append(j)
+				capa = rowList[candidateRow[0]][2] + server[2]
+				rowList[candidateRow[0]] = (rowList[candidateRow[0]][0], rowList[candidateRow[0]][1], capa)
+				placed= True
+				break
+		rowHeuristicIndex += 1
+		if rowHeuristicIndex==16:
+			placed = True
+	rowHeuristicList = map(calcRowHeuristic, rowList)
+	rowHeuristicList.sort(key=itemgetter(1), reverse=True)
+
+print placedServers
 # print serverList
