@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
 
-from placement import * 
+from placement import *
+
+def get_serveurs_updated(serveurs_sorted_by_capacite):
+    serveurs_updated = add_missing_serveur(serveurs_sorted_by_capacite, M)
+    return serveurs_updated
 
 def get_groupe_ordonnancement(serveurs, P, R, M):
     groupes = [([],[0 for i in range(R)]) for i in range(P)]
     serveurs_sorted_by_capacite = sorted(serveurs,key=lambda s:-s[2])
-
     for i, s in enumerate(serveurs_sorted_by_capacite):
         g = select_group(groupes,s)
         add_in_group(groupes, serveurs_sorted_by_capacite, g, s, i)
     print(capa_garantie(groupes))
-    # serveurs_updated = sorted(serveurs_sorted_by_capacite,key=lambda s:s[0])
-    serveurs_updated = add_missing_serveur(serveurs_sorted_by_capacite, M)
-    return serveurs_updated
+    return groupes, serveurs_sorted_by_capacite
 
 
 def add_in_group(groupes, serveurs, g, s, i):
@@ -33,7 +34,6 @@ def capa_garantie(groupes):
             capa_garantie = capa_min_groupe
             groupe_choisi = groupe_id
     return groupe_choisi, capa_garantie
-
 
 def capa(groupe):
     rangees_capacites = groupe[1]
@@ -66,9 +66,10 @@ if __name__ == "__main__":
     P = 45
     R = 16
     M = 625
-    serveurs = [(1,1,1,2,0),(0,3,2,0,0),(0,3,3,1,0)]
+    # serveurs = [(1,1,1,2,0),(0,3,2,0,0),(0,3,3,1,0)]
     serveurs = getPlacedServers()
-    serveurs_updated = get_groupe_ordonnancement(serveurs, P, R, M)
+    groupes, serveurs_sorted_by_capacite = get_groupe_ordonnancement(serveurs, P, R, M)
+    serveurs_updated = get_serveurs_updated(serveurs_sorted_by_capacite)
     # affiche_resultat(serveurs_updated)
     save_results_in_file(serveurs_updated,"resultats.txt")
 
