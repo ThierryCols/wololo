@@ -54,7 +54,7 @@ def computeScore(shares):
 		score += (share[2] - share[0] + 1) * (share[3] - share [1] + 1)
 	return score
 
-
-(shareCount, shares) = greedLol()
-print(computeScore(shares))
-saveResultsInFile(shareCount, shares, "lolilol.txt")
+if __name__ == "__main__":
+	(shareCount, shares) = greedLol()
+	print(computeScore(shares))
+	saveResultsInFile(shareCount, shares, "lolilol.txt")
