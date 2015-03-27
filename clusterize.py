@@ -1,8 +1,22 @@
 from inpute import *
 
-from greedy import *
-
 matrix = getInput()
+
+# fonction salement copiées sur Stan
+
+def computeScore(shares):
+    score = 0
+    for share in shares:
+        score += (share[2] - share[0] + 1) * (share[3] - share [1] + 1)
+    return score
+
+def saveResultsInFile(shareCount, shares, filename):
+    with open(filename,"w") as file:
+        file.write(str(shareCount) + "\n")
+        for share in shares:
+            file.write(str(share[0]) + " " + str(share[1]) + " " + str(share[2]) + " " + str(share[3]) + "\n")
+
+# fin des fonctions de Stan
 
 def mark(i, j, k, l):
     for row in range(i, k+1):
