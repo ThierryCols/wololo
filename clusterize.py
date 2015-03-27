@@ -1,6 +1,10 @@
 from inpute import *
+from copy import deepcopy
 
 matrix = getInput()
+# H = len(ref)
+# W = len(ref[0])
+# matrix = [[ref[i][W-1-j] for j in range(W)] for i in range(H)]
 
 # fonction salement copiées sur Stan
 
@@ -26,14 +30,16 @@ def mark(i, j, k, l):
 def build_rect(i, j):
     max_score = 0
     pos_finale = (i, j)
+    H_max = 13
     for row in range(i, min(i+12, 180)):
-        for col in range(j, min(j+12, 60)):
-            a = area(i, j, row, col)
+        for col in range(j, max(j-12, -1),-1):
+            a = area(i, col, row, j)
             if a <= 12:
-                H = H_count(i, j, row, col)
-                if  H == 3 and H != -1:
-                    if a > max_score:
-                        max_score = area(i, j, row, col)
+                H = H_count(i, col, row, j)
+                if H==3 :
+                    if H < H_max or a > max_score:
+                        H_max = H
+                        max_score = a
                         pos_finale = (row, col)
     return pos_finale
 
@@ -53,7 +59,7 @@ def H_count(i, j, k, l):
 
 def pick():
     for row in range(0, 180):
-        for col in range(0, 60):
+        for col in range(59, -1, -1):
             if matrix[row][col] != 'X':
                 return (row, col)
     return (-1, -1)
@@ -64,8 +70,8 @@ if __name__ == "__main__":
         debut_coord = pick()
         fin_coord = build_rect(debut_coord[0], debut_coord[1])
         if debut_coord != fin_coord:
-            rects.append((debut_coord[0], debut_coord[1], fin_coord[0], fin_coord[1]))
-        mark(debut_coord[0], debut_coord[1], fin_coord[0], fin_coord[1])
+            rects.append((debut_coord[0], fin_coord[1], fin_coord[0], debut_coord[1]))
+        mark(debut_coord[0], fin_coord[1], fin_coord[0], debut_coord[1])
     print(computeScore(rects))
 
     saveResultsInFile(len(rects), rects, 'test_xavier.txt')
