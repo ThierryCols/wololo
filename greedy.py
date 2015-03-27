@@ -91,6 +91,7 @@ def computeScore(shares):
 		score += (share[2] - share[0] + 1) * (share[3] - share [1] + 1)
 	return score
 
+
 shareCount = 0
 shares = []
 while computeScore(shares) <= 9060:
