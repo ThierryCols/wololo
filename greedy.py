@@ -20,6 +20,23 @@ def getSmallerShape(x, y, shape, pizza):
 					return (h,j+1-w)
 	return (h,w)
 
+def getAllowedShapes():
+	shapes = []
+	if random.randrange(2)==0:
+		shapes += [(3,4), (4,3)]
+	else:
+		shapes += [(4,3), (3,4)]
+	if random.randrange(2)==0:
+		shapes += [(2,6), (6,2)]
+	else:
+		shapes += [(6,2), (2,6)]
+	if random.randrange(2)==0:
+		shapes += [(1,12), (12,1)]
+	else:
+		shapes += [(12,1), (1,12)]
+	return shapes
+
+
 def greedLol():
 	allowedShapes = [[(3,4), (4,3), (2,6), (6,2), (1,12), (12,1)],[(4,3), (3,4), (6,2), (2,6), (12,1), (1,12)]]
 	pizza = getInput()
@@ -30,7 +47,7 @@ def greedLol():
 		for x in range(180):
 			case = pizza[x][y]
 			jambonShapes = []
-			my_shapes = allowedShapes[random.randrange(2)]
+			my_shapes = getAllowedShapes()
 			for shape in my_shapes:
 				forbidden = False
 				compteurDeJambon = 0
@@ -76,7 +93,8 @@ def computeScore(shares):
 
 shareCount = 0
 shares = []
-while shareCount <= 8988:
+while computeScore(shares) <= 9060:
+	# print(shareCount)
 	(shareCount, shares) = greedLol()
 print(computeScore(shares))
 saveResultsInFile(shareCount, shares, "lolilol.txt")
