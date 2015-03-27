@@ -1,3 +1,4 @@
 *.pyc
 resultats.txt
 dc.in
+.DS_Store
