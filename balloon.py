@@ -36,6 +36,7 @@ class Ballon:
             self.balloons[balloonId]['isLost'] = False
 
 
+
     
 
     def __str__(self):
@@ -56,11 +57,30 @@ class Ballon:
         self.balloons[idBallon]['z'] = z
 
 
-    def getCoveredArea(self, idBallon):
+    def setCoveredArea(self, idBallon):
         x = self.balloons[idBallon]['x']
         y = self.balloons[idBallon]['y']
-        z = self.balloons[idBallon]['z']
+        coveredArea = []
+        #z = self.balloons[idBallon]['z']
+        for row in range(x - 7, x+7):
+            for col in range(y - 7, y + 7):
+                if (x - row)*(x - row) + (y - col)*(y - col) <= 9 :
+                    if row >= 0 and row <= 74:
+                        if col >= 0 and col <= 299:
+                            coveredArea.append((row,col))
+                        elif col >= 299:
+                            colFin = col - 300
+                            coveredArea.append((row,colFin))
+                        elif col < 0:
+                            colFin = 300 + col
+                            coveredArea.append((row,colFin))
 
+        self.balloons[idBallon]['casesCouvertes'] = coveredArea
+
+    def getCoveredArea(self, idBallon):
+        self.setCoveredArea(idBallon)
+        return self.balloons[idBallon]['casesCouvertes']
+        
 
 
 
@@ -72,7 +92,9 @@ if __name__ == "__main__":
     test = ballons.getBalloonCoordinates(23)
     print(test)
     ballons.setBalloonCoordinates(23, 0, 0, 0)
-    
+
     test = ballons.getBalloonCoordinates(23)
     print(test)
+
+    print(ballons.getCoveredArea(23))
     os.system('pause')
