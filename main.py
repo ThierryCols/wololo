@@ -35,6 +35,7 @@ if __name__ == "__main__":
 
     f = open("answer.txt","w")
     f.write('')
+    scoreTotal = 0
 
     for turn in range(0, 400):
         (currentBalloons, moves, score) = decide(currentBalloons, graphe)
@@ -43,5 +44,8 @@ if __name__ == "__main__":
         turns[turn]['Score'] = score
         print('score at turn '+str(turn)+' : '+str(score))
 
+        scoreTotal += score
+
         saveResults(moves, "answer.txt")
 
+    print(scoreTotal)
