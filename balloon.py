@@ -50,7 +50,16 @@ class Ballon:
     def getBalloonCoordinates(self, idBallon):
         return (self.balloons[idBallon]['x'], self.balloons[idBallon]['y'], self.balloons[idBallon]['z'])
 
+    def setBalloonCoordinates(self, idBallon, x, y, z):
+        self.balloons[idBallon]['x'] = x
+        self.balloons[idBallon]['y'] = y
+        self.balloons[idBallon]['z'] = z
 
+
+    def getCoveredArea(self, idBallon):
+        x = self.balloons[idBallon]['x']
+        y = self.balloons[idBallon]['y']
+        z = self.balloons[idBallon]['z']
 
 
 
@@ -60,6 +69,10 @@ class Ballon:
 if __name__ == "__main__":
     ballons = Ballon()
     #print(ballons)
+    test = ballons.getBalloonCoordinates(23)
+    print(test)
+    ballons.setBalloonCoordinates(23, 0, 0, 0)
+    
     test = ballons.getBalloonCoordinates(23)
     print(test)
     os.system('pause')
