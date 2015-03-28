@@ -31,7 +31,8 @@ def decide(balloons, graphe):
             bestMove = 0
         decidedBalloons.append(bestCandidate)
         moves.append(bestMove)
-        score += scoreMax
+        if scoreMax != -1:
+            score += scoreMax
 
     return (decidedBalloons, moves, score)
 
