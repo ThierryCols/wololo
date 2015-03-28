@@ -4,6 +4,7 @@
 # ------------------------------
 import os
 import sys
+from donneesEntree import *
 
 # Class
 # ------------------------------
@@ -80,6 +81,21 @@ class Ballon:
     def getCoveredArea(self, idBallon):
         self.setCoveredArea(idBallon)
         return self.balloons[idBallon]['casesCouvertes']
+
+    def getScore(self):
+        cibles = getCasesCibles()
+        scoreDict = {}
+        for ballon in self.balloons:
+            couverture = self.getCoveredArea(ballon)
+            for cible in cibles:
+                if cible in couverture:
+                    if cible in scoreDict.keys():
+                        scoreDict[cible] += 1
+                    else:
+                        scoreDict[cible] = 1
+        score = len(scoreDict)
+        return score
+
         
 
 
@@ -97,4 +113,5 @@ if __name__ == "__main__":
     print(test)
 
     print(ballons.getCoveredArea(23))
+    print(ballons.getScore())
     os.system('pause')
