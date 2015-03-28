@@ -62,5 +62,6 @@ class Graph:
 
 
 if __name__ == "__main__":
+    print('Buiding graph...')
     g = Graph()
-    print(g)
+    print('Done !')
