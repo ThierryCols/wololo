@@ -9,10 +9,10 @@ def decide(balloons, graphe):
     for b in balloons:
         scoreMax = -1
         bestMove = 0
-        bestCandidate = Balloon(0, 0, 0, 0)
+        bestCandidate = None
         newPositions = graphe.getPossibleMoves(b.x, b.y, b.z)
         for newPosition in newPositions:
-            candidateBalloon = Balloon(0, newPosition[1][0], newPosition[1][1], newPosition[1][2])
+            candidateBalloon = Balloon(b.id, newPosition[1][0], newPosition[1][1], newPosition[1][2])
             candidateDecidedBalloons = decidedBalloons[:]
             candidateDecidedBalloons.append(candidateBalloon)
             s = getScore(candidateDecidedBalloons)

@@ -28,7 +28,11 @@ class Balloon:
         self.y = y
         self.z = z
         self.casesCouvertes = []
-
+        self.casesCibleCouvertes = []
+        self.setCoveredArea()
+        for cible in casesCibles:
+            if cible in self.casesCouvertes:
+                self.casesCibleCouvertes.append(cible)
 
 
     def __str__(self):
@@ -67,7 +71,6 @@ class Balloon:
         self.casesCouvertes = coveredArea
 
     def getCoveredArea(self):
-        self.setCoveredArea()
         return self.casesCouvertes
 
 
@@ -77,16 +80,15 @@ casesCibles = [(24,167),(4,113),(12,91),(21,172),(1,180),(7,175),(20,105),(8,96)
 
 
 def getScore(balloonsList):
-    scoreDict = {}
+    alreadyCountedTarget = []
+    score = 0
     for ballon in balloonsList:
         couverture = ballon.getCoveredArea()
-        for cible in casesCibles:
+        for cible in ballon.casesCibleCouvertes:
             if cible in couverture:
-                if cible in scoreDict.keys():
-                    scoreDict[cible] += 1
-                else:
-                    scoreDict[cible] = 1
-    score = len(scoreDict)
+                if not cible in alreadyCountedTarget:
+                    alreadyCountedTarget.append(cible)
+                    score +=1
     return score
 
 
