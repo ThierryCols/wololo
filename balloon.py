@@ -55,9 +55,9 @@ class Balloon:
         y = self.y
         coveredArea = []
         #z = self.balloons[idBallon]['z']
-        for row in range(x - 7, x+7):
-            for col in range(y - 7, y + 7):
-                if (x - row)*(x - row) + (y - col)*(y - col) <= 9 :
+        for row in range(x - 7, x+8):
+            for col in range(y - 7, y + 8):
+                if (x - row)*(x - row) + (y - col)*(y - col) <= 7*7 :
                     if row >= 0 and row <= 74:
                         if col >= 0 and col <= 299:
                             coveredArea.append((row,col))
@@ -112,5 +112,8 @@ if __name__ == "__main__":
     print(getScore([ballon, ballon2]))
     print(getScore([ballon2]))
 
+    print(ballon2.getCoveredArea())
+
+    print(len(ballon2.getCoveredArea()))
 
     os.system('pause')
