@@ -14,6 +14,16 @@ def initBalloons():
 
     return(listBalloon, initMoves, 0)
 
+
+def saveResults(B, filename):
+    with open(filename,"a") as file:
+        string = ''
+        for e in B:
+            string += str(e)+' '
+
+        file.write(string + "\n")
+
+
 if __name__ == "__main__":
     print('Buiding graph...')
     graphe = Graph()
@@ -23,7 +33,8 @@ if __name__ == "__main__":
 
     (currentBalloons, moves, score) = initBalloons()
 
-
+    f = open("answer.txt","w")
+    f.write('')
 
     for turn in range(0, 400):
         (currentBalloons, moves, score) = decide(currentBalloons, graphe)
@@ -32,5 +43,5 @@ if __name__ == "__main__":
         turns[turn]['Score'] = score
         print('score at turn '+str(turn)+' : '+str(score))
 
-
+        saveResults(moves, "answer.txt")
 

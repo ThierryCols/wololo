@@ -31,7 +31,7 @@ class Graph:
         newZ = 0
         for altDelta in [-1, 0, 1]:
             newZ = z + altDelta
-            if newZ < 8 and newZ >= 0:
+            if newZ < 8 and newZ > 0:
                 # vent
                 newCoordXY = self.applyWind(x, y, newZ)
                 newX = newCoordXY[0]
