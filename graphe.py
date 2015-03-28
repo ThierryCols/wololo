@@ -56,9 +56,9 @@ class Graph:
 
 
     # methodes publiques
-    def getPossibleMoves(self, x, y, z, graph):
+    def getPossibleMoves(self, x, y, z):
         key = (x, y, z)
-        return graph[key]['listeAdjacence']
+        return self.graph[key]['listeAdjacence']
 
 
 if __name__ == "__main__":

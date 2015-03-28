@@ -6,15 +6,16 @@ def decide(balloons, graphe):
     moves = []
 
     # heuristicchoix ballon?
-    for balloon in balloons:
+    for b in balloons:
         scoreMax = -1
         bestMove = 0
         bestCandidate = Balloon(0, 0, 0, 0)
-        newPositions = graphe.getPossibleMoves()
+        newPositions = graphe.getPossibleMoves(b.x, b.y, b.z)
         for newPosition in newPositions:
             candidateBalloon = Balloon(0, newPosition[1][0], newPosition[1][1], newPosition[1][2])
-            candidateDecidedBalloons = decidedBalloons[:].append(candidateBalloon)
-            s = getScoreFromBalloon(candidateDecidedBalloons)
+            candidateDecidedBalloons = decidedBalloons[:]
+            candidateDecidedBalloons.append(candidateBalloon)
+            s = getScore(candidateDecidedBalloons)
 
             if s > scoreMax:
                 bestCandidate = candidateBalloon
