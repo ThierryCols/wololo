@@ -6,6 +6,7 @@ class Graph:
     def __init__(self):
         self.data = getWinds()
         self.graph = self.buildGraph()
+        self.removeLeaf(self.graph)
 
     def __str__(self):
         return str(self.graph)
@@ -48,12 +49,21 @@ class Graph:
         Y = y + wind[1]
         if X > 74 or X < 0:
             X = -1
-        elif Y > C:
+        if Y > C:
             Y = Y - C
         elif Y < 0:
             Y = Y + C
         return (X, Y)
 
+    def removeLeaf(self, graphe):
+        for key in graphe.keys():
+            L = graphe[key]['listeAdjacence'][:]
+            Lfiltered = []
+            for element in L:
+                if len(graphe[element[1]]['listeAdjacence']) != 0:
+                    Lfiltered.append(element)
+            graphe[key]['listeAdjacence'] = Lfiltered
+            print('graphe cleaning')
 
     # methodes publiques
     def getPossibleMoves(self, x, y, z):

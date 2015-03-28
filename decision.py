@@ -22,6 +22,7 @@ def decide(balloons, graphe):
                 bestCandidate = candidateBalloon
                 scoreMax = s
                 bestMove = newPosition[0]
+
         if scoreMax == 0:
             randomPosition = random.choice(newPositions)
             bestMove = randomPosition[0]
@@ -29,6 +30,7 @@ def decide(balloons, graphe):
         if len(newPositions) == 0:
             bestCandidate = b
             bestMove = 0
+
         decidedBalloons.append(bestCandidate)
         moves.append(bestMove)
         if scoreMax != -1:
