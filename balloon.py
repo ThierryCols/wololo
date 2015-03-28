@@ -47,6 +47,8 @@ class Ballon:
             a += ("Ballon "+str(ballon)+" aux coordonnées " + str(self.balloons[ballon]['x'])+ " , "+ str(self.balloons[ballon]['y'])+ " , "+ str(self.balloons[ballon]['z'])+'\n') 
         return a
 
+    def getBalloonCoordinates(self, idBallon):
+        return (self.balloons[idBallon]['x'], self.balloons[idBallon]['y'], self.balloons[idBallon]['z'])
 
 
 
@@ -57,5 +59,7 @@ class Ballon:
 # ------------------------------
 if __name__ == "__main__":
     ballons = Ballon()
-    print(ballons)
+    #print(ballons)
+    test = ballons.getBalloonCoordinates(23)
+    print(test)
     os.system('pause')
