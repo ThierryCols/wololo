@@ -1,4 +1,5 @@
 from balloon import *
+import random
 
 def decide(balloons, graphe):
     decidedBalloons = []
@@ -21,7 +22,10 @@ def decide(balloons, graphe):
                 bestCandidate = candidateBalloon
                 scoreMax = s
                 bestMove = newPosition[0]
-
+        if scoreMax == 0:
+            randomPosition = random.choice(newPositions)
+            bestMove = newPosition[0]
+            bestCandidate = candidateBalloon = Balloon(b.id, newPosition[1][0], newPosition[1][1], newPosition[1][2])
         decidedBalloons.append(bestCandidate)
         moves.append(bestMove)
         score += scoreMax
