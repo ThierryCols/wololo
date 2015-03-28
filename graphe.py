@@ -37,7 +37,7 @@ class Graph:
                 newX = newCoordXY[0]
                 newY = newCoordXY[1]
                 if newX != -1:
-                    L.append((newX, newY, newZ))
+                    L.append((altDelta, (newX, newY, newZ)))
         return L
 
 
