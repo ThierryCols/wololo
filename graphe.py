@@ -43,36 +43,51 @@ class Graph:
 
 
     def applyWind(self, x, y, z):
-        C = 299
         wind = self.data[z-1][x][y]
         X = x + wind[0]
         Y = y + wind[1]
         if X > 74 or X < 0:
             X = -1
-        if Y > C:
-            Y = Y - C
+        if Y > 299:
+            Y = Y - 300
         elif Y < 0:
-            Y = Y + C
+            Y = Y + 300
         return (X, Y)
 
     def removeLeaf(self, graphe):
-        for key in graphe.keys():
-            L = graphe[key]['listeAdjacence'][:]
-            Lfiltered = []
-            for element in L:
-                if len(graphe[element[1]]['listeAdjacence']) != 0:
-                    Lfiltered.append(element)
-            graphe[key]['listeAdjacence'] = Lfiltered
-            print('graphe cleaning')
+        terminalLeaves = findTerminalLeaf(graphe)
+        print('graphe cleaning ... ')
+
+        while len(terminalLeaves) > 0:
+            for key, value in graphe.items():
+                lAdj = value['listeAdjacence'][:]
+                lFiltered = []
+                for element in lAdj:
+                    if len(graphe[element[1]]['listeAdjacence']) != 0:
+                        lFiltered.append(element)
+                value['listeAdjacence'] = lFiltered
+
+            for leave in terminalLeaves:
+                del graphe[leave]
+
+            terminalLeaves = findTerminalLeaf(graphe)
 
     # methodes publiques
     def getPossibleMoves(self, x, y, z):
         key = (x, y, z)
         return self.graph[key]['listeAdjacence']
 
+def findTerminalLeaf(graphe):
+    leaveTerminal = []
+    for key, value in graphe.items():
+        if len(value['listeAdjacence']) == 0:
+            leaveTerminal.append(key)
+    return leaveTerminal
+
 
 if __name__ == "__main__":
     print('Buiding graph...')
     g = Graph()
     print('Done !')
-    print(g)
+    print(g.graph[(0, 139, 1)])
+    print(g.getPossibleMoves(0, 139, 1))

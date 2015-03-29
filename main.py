@@ -6,22 +6,22 @@ from decision import *
 
 def initBalloons():
     listBalloon = []
-    initMoves = []
 
     for b in range(0, 53):
         listBalloon.append(Balloon(b, 24, 167, 0))
-        initMoves.append(0)
 
-    return(listBalloon, initMoves, 0)
+    return(listBalloon, [], 0)
 
 
-def saveResults(B, filename):
-    with open(filename,"a") as file:
+def saveResults(totalMoves, filename):
+    with open(filename,"w") as file:
         string = ''
-        for e in B:
-            string += str(e)+' '
+        for moves in totalMoves:
+            for move in moves:
+                string += str(move)+' '
+            string += "\n"
 
-        file.write(string + "\n")
+        file.write(string)
 
 
 if __name__ == "__main__":
@@ -29,23 +29,16 @@ if __name__ == "__main__":
     graphe = Graph()
     print('Graph Built !')
 
-    turns = {}
-
     (currentBalloons, moves, score) = initBalloons()
 
-    f = open("answer.txt","w")
-    f.write('')
     scoreTotal = 0
+    totalMoves = []
 
     for turn in range(0, 400):
-        (currentBalloons, moves, score) = decide(currentBalloons, graphe)
-        turns[turn] = {}
-        turns[turn]['B'] = moves
-        turns[turn]['Score'] = score
+        (currentBalloons, moves, score) = decide(currentBalloons, graphe, turn)
+        scoreTotal += score
+        totalMoves.append(moves)
         print('score at turn '+str(turn)+' : '+str(score))
 
-        scoreTotal += score
-
-        saveResults(moves, "answer.txt")
-
+    saveResults(totalMoves, "answer.txt")
     print(scoreTotal)
